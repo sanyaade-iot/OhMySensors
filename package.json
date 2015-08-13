@@ -1,0 +1,31 @@
+{
+  "name": "ohmysensors",
+  "version": "0.0.1",
+  "description": "An home automation controller for MySensors",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marvinroger/OhMySensors.git"
+  },
+  "keywords": [
+    "mysensors",
+    "home",
+    "automation",
+    "controller"
+  ],
+  "author": "Marvin ROGER",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/marvinroger/OhMySensors/issues"
+  },
+  "homepage": "https://github.com/marvinroger/OhMySensors#readme",
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "winston": "^1.0.1"
+  }
+}
