@@ -126,5 +126,18 @@ describe('Serial protocol parser', function() {
         SP.stringify(parsed);
       }, SP.ProtocolError);
     });
+    it('should fail when payload too big', function() {
+      var parsed = {
+        nodeId: 3,
+        childSensorId: 4,
+        messageType: 'presentation',
+        ack: false,
+        subType: 'S_DOOR',
+        payload: 'This payload is waaaaaaay too big!'
+      };
+      assert.throws(function() {
+        SP.stringify(parsed);
+      }, SP.ProtocolError);
+    });
   });
 });
