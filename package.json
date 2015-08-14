@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "description": "An home automation controller for MySensors",
   "main": "index.js",
-  "bin" : {
-    "ohmysensors" : "./bin/cli.js"
+  "bin": {
+    "ohmysensors": "./bin/cli.js"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
   },
   "homepage": "https://github.com/marvinroger/OhMySensors#readme",
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.1.0",
+    "istanbul": "^0.3.17",
     "mocha": "^2.2.5"
   },
   "dependencies": {

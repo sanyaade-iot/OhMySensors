@@ -11,7 +11,7 @@ var command = argv._[0];
 var logger = require('winston');
 logger.cli();
 var Ethernet = require('../lib/connector/ethernet');
-var SerialProtocol = require('../lib/serial-protocol')
+var SerialProtocol = require('../lib/serial-protocol');
 
 
 if (command === 'debug') {
