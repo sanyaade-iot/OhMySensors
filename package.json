@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "An home automation controller for MySensors",
   "main": "index.js",
+  "bin" : {
+    "ohmysensors" : "./bin/cli.js"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -26,6 +29,8 @@
     "mocha": "^2.2.5"
   },
   "dependencies": {
-    "winston": "^1.0.1"
+    "eversocket": "0.0.4",
+    "winston": "^1.0.1",
+    "yargs": "^3.19.0"
   }
 }
