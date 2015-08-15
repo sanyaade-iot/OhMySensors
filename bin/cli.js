@@ -1,21 +1,35 @@
-var argv = require('yargs')
-    .usage('Usage: $0 <command> [options]')
-    .command('debug', 'Debug the Serial Protocol messages sent and received')
-    .demand(1)
-    .example('$0 debug --ip 192.168.0.10 --port 5003')
-    .demand(['ip', 'port'])
-    .argv;
+var yargs = require('yargs');
+var argv = yargs
+  .usage('Usage: $0 <command> [options]')
+  .command('start', 'Start OhMySensors')
+  .command('debug', 'Debug the Serial Protocol messages sent and received')
+  .demand(1)
+  .argv;
 
 var command = argv._[0];
 
 var logger = require('winston');
 logger.cli();
-var Ethernet = require('../lib/connector/ethernet');
-var SerialProtocol = require('../lib/serial-protocol');
 
+if (command === 'start') {
+  yargs.reset()
+    .usage('Usage: $0 start [options]')
+    .example('$0 start --databaseDir ./ohmysensors-data')
+    .demand('databaseDir')
+    .argv;
 
-if (command === 'debug') {
-  var gateway = new Ethernet(argv.ip, argv.port);
+  var bootstrap = require('../lib/bootstrap')(argv.databaseDir);
+} else if (command === 'debug') {
+  yargs.reset()
+    .usage('Usage: $0 debug [options]')
+    .example('$0 debug --ip 192.168.0.10 --port 5003')
+    .demand(['ip', 'port'])
+    .argv;
+
+  var EthernetConnector = require('../lib/connector/ethernet');
+  var SerialProtocol = require('../lib/serial-protocol');
+
+  var gateway = new EthernetConnector(argv.ip, argv.port);
   gateway.on('connection', function onConnection() {
     logger.info('Connected to gateway');
   });
