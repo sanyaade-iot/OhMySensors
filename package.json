@@ -32,6 +32,7 @@
     "mocha": "^2.2.5"
   },
   "dependencies": {
+    "@gustavnikolaj/migrate": "^1.0.0",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
     "sqlite3": "^3.0.10",
