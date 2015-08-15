@@ -18,7 +18,7 @@ if (command === 'start') {
     .demand('databaseDir')
     .argv;
 
-  var bootstrap = require('../lib/bootstrap')(argv.databaseDir);
+  require('../lib/bootstrap')(argv.databaseDir);
 } else if (command === 'debug') {
   yargs.reset()
     .usage('Usage: $0 debug [options]')
