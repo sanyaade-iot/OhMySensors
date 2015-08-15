@@ -6,8 +6,8 @@ OhMySensors is my attempt at creating an home automation controller for [MySenso
 
 - [x] Free
 - [ ] Support every feature of MySensors
-- [ ] Compatible with multiple types of Gateway
+- [x] Compatible with multiple types of Gateway
   - [x] Ethernet Gateway
-  - [ ] Serial Gateway
+  - [x] Serial Gateway
 - [x] Dependency-less (except NPM modules) 
 - [ ] Material dashboard

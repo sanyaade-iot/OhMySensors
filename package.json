@@ -35,6 +35,7 @@
     "@gustavnikolaj/migrate": "^1.0.0",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
+    "serialport": "^1.7.4",
     "sqlite3": "^3.0.10",
     "winston": "^1.0.1",
     "yargs": "^3.19.0"
