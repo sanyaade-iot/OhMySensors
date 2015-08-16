@@ -1,0 +1,8 @@
+{
+  "name": "OhMySensors",
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "bootstrap-material-design": "~0.3.0"
+  }
+}

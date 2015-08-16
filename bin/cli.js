@@ -12,15 +12,17 @@ var logger = require('winston');
 logger.cli();
 
 if (command === 'start') {
-  yargs.reset()
+  argv = yargs.reset()
     .usage('Usage: $0 start [options]')
     .example('$0 start --databaseDir ./ohmysensors-data')
-    .demand('databaseDir')
+    .default('databaseDir', './data')
+    .default('ip', '0.0.0.0')
+    .default('port', 80)
     .argv;
 
-  require('../lib/bootstrap')(argv.databaseDir);
+  require('../lib/bootstrap')(argv.databaseDir, argv.ip, argv.port);
 } else if (command === 'debug') {
-  yargs.reset()
+  argv = yargs.reset()
     .usage('Usage: $0 debug [options]')
     .example('$0 debug --ip 192.168.0.10 --port 5003')
     .demand(['ip', 'port'])
