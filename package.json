@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@gustavnikolaj/migrate": "^1.0.0",
+    "body-parser": "^1.13.3",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
     "express": "^4.13.3",

@@ -18,6 +18,7 @@ var sql = "CREATE TABLE 'nodes' ("
         + "CREATE TABLE 'data' ("
         + "  'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
         + "  'sensor_id' INTEGER NOT NULL  REFERENCES 'sensors' ('id'),"
+        + "  'received_date' TEXT NOT NULL,"
         + "  'type' TEXT NOT NULL,"
         + "  'value' TEXT DEFAULT NULL"
         + ");";
