@@ -33,14 +33,12 @@
   },
   "dependencies": {
     "@gustavnikolaj/migrate": "^1.0.0",
-    "body-parser": "^1.13.3",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
-    "express": "^4.13.3",
-    "nunjucks": "^1.3.4",
     "serialport": "^1.7.4",
     "sqlite3": "^3.0.10",
     "winston": "^1.0.1",
+    "ws": "^0.7.2",
     "yargs": "^3.19.0"
   }
 }
