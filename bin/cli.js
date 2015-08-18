@@ -9,7 +9,7 @@ var argv = yargs
 var command = argv._[0];
 
 var logger = require('winston');
-logger.level = 'debug';
+//logger.level = 'debug';
 logger.cli();
 
 if (command === 'start') {
