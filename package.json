@@ -4,7 +4,7 @@
   "description": "An home automation controller for MySensors",
   "main": "index.js",
   "bin": {
-    "ohmysensors": "./bin/cli.js"
+    "ohmysensors": "./bin/babel-bridge.js"
   },
   "scripts": {
     "test": "mocha",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@gustavnikolaj/migrate": "^1.0.0",
+    "babel": "^5.8.21",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
     "serialport": "^1.7.4",
