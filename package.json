@@ -34,6 +34,7 @@
   "dependencies": {
     "@gustavnikolaj/migrate": "^1.0.0",
     "babel": "^5.8.21",
+    "denodeify": "^1.2.1",
     "dirty": "^0.9.9",
     "eversocket": "0.0.4",
     "serialport": "^1.7.4",
