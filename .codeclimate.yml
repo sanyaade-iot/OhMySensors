@@ -1,2 +1,6 @@
+engines:
+  eslint:
+    enabled: true
+
 exclude_paths:
   - "public/3rd/*"
