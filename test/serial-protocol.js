@@ -1,5 +1,5 @@
 var assert = require('assert');
-var SerialProtocol = SP = require('../lib/serial-protocol');
+var SP = require('../lib/serial-protocol');
 
 describe('Serial protocol parser', function() {
   describe('parse()', function() {
