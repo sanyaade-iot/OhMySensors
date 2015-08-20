@@ -16,3 +16,8 @@ OhMySensors is my attempt at creating an home automation controller for [MySenso
 The initial goal is to provide an API that would only allow to see the current state of sensors and interact with them in case of an actuator. In a second time, the API will be able to aggregate data of a sensor given a time period to generate graphs and charts. Finally, I would like to implement some sort of event-based automation, starting with snippets of Javascript being able to respond to events, to ultimately create sort of an IFTT system, more user-friendly.
 
 A GUI is the next logical step, and it would be completely separated from the server code (only using API).
+
+## Technology
+
+I wanted something future-ready, so OhMySensors is using pure-JS with Node. It uses some ES6 and even ES7 concepts like async-await which make some parts of the code very clean. It is still compatible with ES5 (Node 0.12) as it uses Babel to transform ES6/7 code to ES5.
+It also makes use of SQLite because of its lightness and its ability to perform a read against thousands of records in a matter of milliseconds, which is a must to generate graphs of the temperature sent by the sensors, for example.
