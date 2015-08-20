@@ -2,14 +2,32 @@ var yargs = require('yargs');
 var argv = yargs
   .usage('Usage: $0 <command> [options]')
   .command('start', 'Start OhMySensors')
-  .command('debug', 'Debug the Serial Protocol messages sent and received')
+  .command('debug', 'Debug the Serial Protocol messages sent and received', function(yargs) {
+    argv = yargs
+      .usage('Usage: $0 debug <command> [options]')
+      .command('ethernet', 'Use Ethernet gateway')
+      .command('serial', 'Use Serial gateway')
+      .demand(2)
+      .check(function(argv, opts){
+        if(!argv._[1].match(/ethernet|serial/)) { // WA : see https://github.com/bcoe/yargs/issues/174
+          throw new Error('must provide a valid command');
+        }
+        return true;
+      })
+      .argv;
+  })
   .demand(1)
+  .check(function(argv, opts){
+    if(!argv._[0].match(/start|debug/)) { // WA : see https://github.com/bcoe/yargs/issues/174
+      throw new Error('must provide a valid command');
+    }
+    return true;
+  })
   .argv;
 
 var command = argv._[0];
 
 var logger = require('winston');
-//logger.level = 'debug';
 logger.cli();
 
 if (command === 'start') {
@@ -23,22 +41,33 @@ if (command === 'start') {
 
   require('../lib/bootstrap')(argv.databaseDir, argv.ip, argv.port);
 } else if (command === 'debug') {
-  argv = yargs.reset()
-    .usage('Usage: $0 debug [options]')
-    .example('$0 debug --ip 192.168.0.10 --port 5003')
-    .demand(['ip', 'port'])
-    .argv;
+  var gateway;
 
-  var EthernetConnector = require('../lib/connector/ethernet');
+  if (argv._[1] === 'ethernet') {
+    argv = yargs.reset()
+      .usage('Usage: $0 debug ethernet [options]')
+      .example('$0 debug --ip 192.168.0.10')
+      .default('port', 5003)
+      .demand('ip')
+      .argv;
+
+    var EthernetConnector = require('../lib/connector/ethernet');
+    gateway = new EthernetConnector(argv.ip, argv.port);
+  } else if (argv._[1] === 'serial') {
+    argv = yargs.reset()
+      .usage('Usage: $0 debug [options]')
+      .example('$0 debug serial --port COM3')
+      .demand('port')
+      .argv;
+
+    var SerialConnector = require('../lib/connector/serial');
+    gateway = new SerialConnector(argv.port);
+  }
+
   var SerialProtocol = require('../lib/serial-protocol');
 
-  var gateway = new EthernetConnector(argv.ip, argv.port);
   gateway.on('connection', function onConnection() {
     logger.info('Connected to gateway');
-  });
-
-  gateway.on('reconnection', function onReconnection() {
-    logger.info('Reconnected to gateway');
   });
 
   gateway.on('disconnection', function onDisconnection() {
@@ -50,8 +79,8 @@ if (command === 'start') {
     try {
       parsed = SerialProtocol.parse(message);
     } catch(err) {
-      logger.error('Received bad formatted message: ' + message);
+      logger.error(`Received bad formatted message: ${message}`);
     }
-    logger.info('Node #' + parsed.nodeId + ' - Child sensor ID #' + parsed.childSensorId + ': [' + parsed.messageType + '] ' + parsed.subType + ' = ' + parsed.payload);
+    logger.info(`Node #${parsed.nodeId} - Child ID #${parsed.childSensorId}: [${parsed.messageType}] ${parsed.subType} = ${parsed.payload}`);
   });
 }
