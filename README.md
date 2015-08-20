@@ -6,6 +6,7 @@ OhMySensors is my attempt at creating an home automation controller for [MySenso
 ## Features and goals
 
 - [x] Free
+- [x] Multi-platform (Linux, Mac OS X, Windows)
 - [ ] Support every single type of sensors/feature of MySensors
 - [x] Compatible with multiple types of Gateway
   - [x] Ethernet Gateway
