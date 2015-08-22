@@ -12,7 +12,8 @@ var sqlSensors = `CREATE TABLE 'sensors' (
   'node_id' INTEGER NOT NULL REFERENCES 'nodes' ('id'),
   'child_id' INTEGER NOT NULL,
   'type' TEXT NOT NULL,
-  'description' TEXT NOT NULL
+  'description' TEXT NOT NULL,
+  'last_seen' TEXT NOT NULL
 );`;
 
 var sqlData = `CREATE TABLE 'data' (
