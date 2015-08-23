@@ -36,6 +36,7 @@
     "babel": "^5.8.21",
     "denodeify": "^1.2.1",
     "dirty": "^0.9.9",
+    "eventemitter2": "^0.4.14",
     "eversocket": "0.0.4",
     "serialport": "^1.7.4",
     "sqlite3": "^3.0.10",
