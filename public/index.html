@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+
+    <title>OhMySensors</title>
+
+    <script src="js/3rd/jquery.min.js"></script>
+    <script>
+      var socket = new WebSocket("ws://" + location.host);
+      socket.onopen = function(e) { console.log('connected'); };
+      socket.onclose = function() { console.log('disconnected'); };
+      socket.onerror = function(e) { console.log('connected'); };
+
+      socket.onmessage = function(message) {
+        var object = JSON.parse(message.data);
+        var name = object[0];
+        var value = object[1];
+
+        switch (name) {
+          case 'sensor_registered':
+            $('body').append('<div class="sensor" data-id="' + value.sensorId + '"><h2>' + value.description + '</h2><span></span></div>');
+            break;
+          case 'data_received':
+            $('.sensor[data-id=' + value.sensorId + '] span').html('<b>' + value.type + '</b> = ' + value.value);
+            break;
+        }
+      };
+    </script>
+  </head>
+
+  <body>
+  </body>
+</html>
