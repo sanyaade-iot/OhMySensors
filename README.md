@@ -20,6 +20,21 @@ The initial goal is to provide an API that would only allow to see the current s
 
 A GUI is the next logical step, and it would be completely separated from the server code (only using API).
 
+## Usage
+
+**Not available in npm yet**
+
+Install it using `npm install -g ohmysensors`
+
+Run it with `ohmysensors --configFile *config.json path* --dataDir *data path*`, the data directory containing the databases will be created if it doesn't exist.
+
+### config.json
+
+An example `config.json` file named `config.example.json` is provided at the root of the repo.
+If your gateway is a serial one, replace `ethernet` with `serial`, remove the `ip` and `port` keys and add a `path` key (example: `COM3` on Windows or `/dev/tty-usbserial1` on Linux).
+
+You can also change the `units` value to `imperial` if you want to.
+
 ## Technology
 
 I wanted something future-ready, so OhMySensors is using pure-JS with Node. It uses some ES6 and even ES7 concepts like async-await which make some parts of the code very clean. It is still compatible with ES5 (Node 0.12) as it uses Babel to transform ES6/7 code to ES5.
