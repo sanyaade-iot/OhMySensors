@@ -143,4 +143,30 @@ describe('Serial protocol parser', function() {
       }, SP.ProtocolError);
     });
   });
+
+  describe('validateVariableValue()', function() {
+    it('should accept good value', function() {
+      var ok = SP.validateVariableValue('V_PERCENTAGE', 50);
+      assert.deepEqual(ok, true);
+    });
+    it('should not accept bad value', function() {
+      var ok = SP.validateVariableValue('V_VOLTAGE', 'foo');
+      assert.deepEqual(ok, false);
+    });
+  });
+
+  describe('variableTypesCanReqSet()', function() {
+    it('should return good values', function() {
+      var allowed = SP.variableTypesCanReqSet('S_DOOR');
+      assert.deepEqual(allowed, [
+        'V_ARMED',
+        'V_TRIPPED',
+        'V_VAR1',
+        'V_VAR2',
+        'V_VAR3',
+        'V_VAR4',
+        'V_VAR5'
+      ]);
+    });
+  });
 });
