@@ -16,9 +16,14 @@ OhMySensors is my attempt at creating an home automation controller for [MySenso
 - [x] Dependency-less (except npm modules)
 - [ ] Websocket API
 
-The initial goal is to provide an API that would only allow to see the current state of sensors and interact with them in case of an actuator. In a second time, the API will be able to aggregate data of a sensor given a time period to generate graphs and charts. Finally, I would like to implement some sort of event-based automation, starting with snippets of Javascript being able to respond to events, to ultimately create sort of an IFTT system, more user-friendly.
+The initial goal is to provide an API that would only allow to see the current state of sensors and interact with them in case of an actuator. 
 
-A GUI is the next logical step, and it would be completely separated from the server code (only using API).
+![Reached](https://cdn3.iconfinder.com/data/icons/10con/512/checkmark_tick-16.png) Goal reached
+
+In a second time, the API will be able to aggregate data of a sensor given a time period to generate graphs and charts. A GUI is the next logical step, and it would be completely separated from the server code (only client code using API).
+
+Finally, I would like to implement some sort of event-based automation, starting with snippets of Javascript being able to respond to events, to ultimately create sort of an IFTT system, more user-friendly.
+I am considering [embedding Node-RED](http://nodered.org/docs/embedding.html) as I don't want to reinvent the wheel.
 
 ## Usage
 
