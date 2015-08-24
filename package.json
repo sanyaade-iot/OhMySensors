@@ -41,6 +41,7 @@
     "express": "^4.13.3",
     "serialport": "^1.7.4",
     "sqlite3": "^3.0.10",
+    "validator": "^4.0.5",
     "winston": "^1.0.1",
     "ws": "^0.8.0",
     "yargs": "^3.19.0"
