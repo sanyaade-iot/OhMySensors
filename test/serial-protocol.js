@@ -1,3 +1,6 @@
+console.log('Transpiling ES6/7 to ES5, please wait...');
+require('babel/register');
+
 var assert = require('assert');
 var SP = require('../lib/serial-protocol');
 
@@ -55,88 +58,88 @@ describe('Serial protocol parser', function() {
 
   describe('stringify()', function() {
     it('should fail when bad parsed', function() {
-      var parsed = { dumb: 'data' };
+      var parsed = new SP.Message({ dumb: 'data' });
       assert.throws(function() {
-        SP.stringify(parsed);
+        parsed.stringify();
       }, SP.ProtocolError);
     });
     it('should stringify message', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'presentation',
         ack: false,
         subType: 'S_DOOR',
         payload: ''
-      };
-      var message = SP.stringify(parsed);
+      });
+      var message = parsed.stringify();
       assert.deepEqual(message, '3;4;0;0;0;\n');
     });
     it('should stringify ack', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'presentation',
         ack: false,
         subType: 'S_DOOR',
         payload: ''
-      };
-      var message = SP.stringify(parsed);
+      });
+      var message = parsed.stringify();
       assert.deepEqual(message, '3;4;0;0;0;\n');
       parsed.ack = true;
-      message = SP.stringify(parsed);
+      message = parsed.stringify();
       assert.deepEqual(message, '3;4;0;1;0;\n');
     });
     it('should fail when bad message type', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'dummy',
         ack: false,
         subType: 'S_DOOR',
         payload: ''
-      };
+      });
       assert.throws(function() {
-        SP.stringify(parsed);
+        parsed.stringify();
       }, SP.ProtocolError);
     });
     it('should fail when bad sub type', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'presentation',
         ack: false,
         subType: 'dummy',
         payload: ''
-      };
+      });
       assert.throws(function() {
-        SP.stringify(parsed);
+        parsed.stringify();
       }, SP.ProtocolError);
     });
     it('should fail when stream', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'stream',
         ack: false,
         subType: 'dummy',
         payload: ''
-      };
+      });
       assert.throws(function() {
-        SP.stringify(parsed);
+        parsed.stringify();
       }, SP.ProtocolError);
     });
     it('should fail when payload too big', function() {
-      var parsed = {
+      var parsed = new SP.Message({
         nodeId: 3,
         childSensorId: 4,
         messageType: 'presentation',
         ack: false,
         subType: 'S_DOOR',
         payload: 'This payload is waaaaaaay too big!'
-      };
+      });
       assert.throws(function() {
-        SP.stringify(parsed);
+        parsed.stringify();
       }, SP.ProtocolError);
     });
   });
