@@ -33,13 +33,14 @@ logger.cli();
 if (command === 'start') {
   argv = yargs.reset()
     .usage('Usage: $0 start [options]')
-    .example('$0 start --databaseDir ./ohmysensors-data')
-    .default('databaseDir', './data')
+    .example('$0 start --configFile ./config.json')
+    .default('dataDir', './data')
     .default('ip', '0.0.0.0')
     .default('port', 80)
+    .demand('configFile')
     .argv;
 
-  require('../lib/bootstrap')(argv.databaseDir, argv.ip, argv.port);
+  require('../lib/bootstrap')(argv.configFile, argv.dataDir, argv.ip, argv.port);
 } else if (command === 'debug') {
   var gateway;
 
