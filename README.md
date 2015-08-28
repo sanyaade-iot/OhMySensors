@@ -14,7 +14,7 @@ OhMySensors is my attempt at creating an home automation controller for [MySenso
   - [x] Ethernet Gateway
   - [x] Serial Gateway
 - [x] Dependency-less (except npm modules)
-- [ ] Websocket API
+- [x] Websocket API
 
 The initial goal is to provide an API that would only allow to see the current state of sensors and interact with them in case of an actuator. 
 
