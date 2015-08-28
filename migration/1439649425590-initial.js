@@ -29,7 +29,7 @@ exports.up = function(next) {
   db.data.run(sqlSensors);
   db.data.run(sqlData);
 
-  db.config.set('configured', false, function() {
+  db.settings.set('configured', false, function() {
     next();
   });
 };
@@ -39,7 +39,7 @@ exports.down = function(next) {
   db.data.run("DROP TABLE 'sensors'");
   db.data.run("DROP TABLE 'data'");
 
-  db.config.rm('configured', function() {
+  db.settings.rm('configured', function() {
     next();
   });
 };

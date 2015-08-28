@@ -7,10 +7,10 @@
 
     <script src="js/3rd/jquery.min.js"></script>
     <script>
-      var socket = new WebSocket("ws://" + location.host);
+      var socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host);
       socket.onopen = function(e) { console.log('connected'); };
       socket.onclose = function() { console.log('disconnected'); };
-      socket.onerror = function(e) { console.log('connected'); };
+      socket.onerror = function(e) { console.log('error'); };
 
       socket.onmessage = function(message) {
         var object = JSON.parse(message.data);
