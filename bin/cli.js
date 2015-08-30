@@ -40,7 +40,12 @@ if (command === 'start') {
     .demand('configFile')
     .argv;
 
-  require('../lib/bootstrap')(argv.configFile, argv.dataDir, argv.ip, argv.port);
+  require('../lib/bootstrap')({
+    configFile: argv.configFile,
+    dataDir: argv.dataDir,
+    ip: argv.ip,
+    port: argv.port
+  });
 } else if (command === 'debug') {
   var gateway;
 
@@ -53,16 +58,16 @@ if (command === 'start') {
       .argv;
 
     var EthernetConnector = require('../lib/connector/ethernet');
-    gateway = new EthernetConnector(argv.ip, argv.port);
+    gateway = new EthernetConnector({ ip: argv.ip, port: argv.port });
   } else if (argv._[1] === 'serial') {
     argv = yargs.reset()
       .usage('Usage: $0 debug [options]')
-      .example('$0 debug serial --port COM3')
-      .demand('port')
+      .example('$0 debug serial --path COM3')
+      .demand('path')
       .argv;
 
     var SerialConnector = require('../lib/connector/serial');
-    gateway = new SerialConnector(argv.port);
+    gateway = new SerialConnector({ path: argv.path });
   }
 
   var SerialProtocol = require('../lib/serial-protocol');
