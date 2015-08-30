@@ -6,7 +6,14 @@
     <title>OhMySensors</title>
 
     <script src="js/3rd/jquery.min.js"></script>
+    <script src="js/3rd/blocks.min.js"></script>
     <script>
+      var nodes = {};
+      
+      blocks.query({
+        nodes: nodes
+      });
+      
       var socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host);
       socket.onopen = function(e) { console.log('connected'); };
       socket.onclose = function() { console.log('disconnected'); };
@@ -18,17 +25,48 @@
         var value = object[1];
 
         switch (name) {
+          case 'node_registered':
+            nodes[value.nodeId] = {
+              name: value.name,
+              version: value.version,
+              battery: value.battery,
+              sensors: {}
+            };
+            break;
           case 'sensor_registered':
-            $('body').append('<div class="sensor" data-id="' + value.sensorId + '"><h2>' + value.description + '</h2><span></span></div>');
+            nodes[value.nodeId].sensors[value.childId] = {
+              sensorId: value.sensorId,
+              type: value.type,
+              description: value.description,
+              lastSeen: new Date(value.lastSeen),
+              values: {}
+            };
             break;
           case 'data_received':
-            $('.sensor[data-id=' + value.sensorId + '] span').html('<b>' + value.type + '</b> = ' + value.value);
+            nodes[value.nodeId].sensors[value.childId].values[value.type] = value.value;
             break;
         }
+        
+        blocks.query({ nodes: nodes }); // Temporary
       };
     </script>
   </head>
 
   <body>
+    <ul data-query="each(nodes)">
+      <li>
+        Node {{$index}}: {{$this.name}} - {{$this.version}}
+        <ul>
+          <li data-query="each($this.sensors)">
+            Child {{$index}}: {{$this.type}} - {{$this.description}} - {{$this.lastSeen.toString()}}
+            <ul>
+              <li data-query="each($this.values)">
+                {{$index}} = {{$this}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </body>
 </html>
