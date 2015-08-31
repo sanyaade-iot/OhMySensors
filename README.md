@@ -31,7 +31,7 @@ I am considering [embedding Node-RED](http://nodered.org/docs/embedding.html) as
 
 Install it using `npm install -g ohmysensors`
 
-Run it with `ohmysensors --configFile *config.json path* --dataDir *data path*`, the data directory containing the databases will be created if it doesn't exist.
+Run it with `ohmysensors --configFile *config.json path* --dataDir *data path*`, the `--dataDir` is optional and defaults to `./data`. If a non-existent directory is provided, it will be created.
 
 ### config.json
 
@@ -40,7 +40,27 @@ If your gateway is a serial one, replace `ethernet` with `serial`, remove the `i
 
 You can also change the `units` value to `imperial` if you want to.
 
+## Build a client
+
+You would like to build a client on top of OhMySensors? There is an easy-to-use WebSocket API, see [the wiki](https://github.com/marvinroger/OhMySensors/wiki/API) for more informations.
+
 ## Technology
 
-I wanted something future-ready, so OhMySensors is using pure-JS with Node. It uses some ES6 and even ES7 concepts like async-await which make some parts of the code very clean. It is still compatible with ES5 (Node 0.12) as it uses Babel to transform ES6/7 code to ES5.
-It also makes use of SQLite because of its lightness and its ability to perform a read against thousands of records in a matter of milliseconds, which is a must to generate graphs of the temperature sent by the sensors, for example.
+### Back-end
+
+I wanted something future-ready, so OhMySensors is using pure-JS with Node. It uses some ES6 and even ES7 concepts like async-await which make some parts of the code very clean. It is still compatible with ES5 (Node 0.12) as it uses Babel to transform ES6/7 code to ES5, which slightly delays the startup (a few seconds).
+
+It also makes use of SQLite because of its lightness and its ability to perform a read against thousands of records in a matter of milliseconds, which is a must to generate graphs/charts of the temperatures sent by the sensors, for example.
+
+The API is a websocket one, so that clients can be notified of updates in real-time, which is also a must for an home automation system.
+
+### Front-end
+
+The front-end will use [jsblocks](http://jsblocks.com/), a new JS MVC framework. This is very easy to learn and allows server-side rendering, which is a great addition for low-end devices.
+
+## A few words on the name
+
+OhMySensors sounded good to me. Being french, "oh my gosh" is something we use to say a lot.
+It also reminds of the home, as it sounds like "home I sensors", which also sounds like an Apple-ish product.
+
+The logo of OhMySensors has a meaning. In french, "Oh" sounds like "eau", which means "water" in english. The logo looks like a drop, a reversed drop. The idea behind this is that, when you waste water for whatever reason (water leak, valve forgotten), the water flows down. But with home automation, this kind of situation can be avoided: that's why the water "flows up", this illustrates the benefits of home automation for the environment.
