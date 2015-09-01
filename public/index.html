@@ -25,7 +25,7 @@
         var value = object[1];
 
         switch (name) {
-          case 'node_registered':
+          case 'nodeRegistered':
             nodes[value.nodeId] = {
               name: value.name,
               version: value.version,
@@ -33,7 +33,7 @@
               sensors: {}
             };
             break;
-          case 'sensor_registered':
+          case 'sensorRegistered':
             nodes[value.nodeId].sensors[value.childId] = {
               sensorId: value.sensorId,
               type: value.type,
@@ -42,7 +42,7 @@
               values: {}
             };
             break;
-          case 'data_received':
+          case 'dataReceived':
             nodes[value.nodeId].sensors[value.childId].values[value.type] = value.value;
             break;
         }
