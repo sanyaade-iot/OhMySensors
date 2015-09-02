@@ -10,10 +10,6 @@
     <script>
       var nodes = {};
       
-      blocks.query({
-        nodes: nodes
-      });
-      
       var socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host);
       socket.onopen = function(e) { console.log('connected'); };
       socket.onclose = function() { console.log('disconnected'); };
@@ -38,7 +34,7 @@
               sensorId: value.sensorId,
               type: value.type,
               description: value.description,
-              lastSeen: new Date(value.lastSeen),
+              lastSeen: typeof value.lastSeen !== 'undefined' ? new Date(value.lastSeen) : null,
               values: {}
             };
             break;
@@ -58,7 +54,7 @@
         Node {{$index}}: {{$this.name}} - {{$this.version}}
         <ul>
           <li data-query="each($this.sensors)">
-            Child {{$index}}: {{$this.type}} - {{$this.description}} - {{$this.lastSeen.toString()}}
+            Child {{$index}}: {{$this.type}} - {{$this.description}} - {{$this.lastSeen}}
             <ul>
               <li data-query="each($this.values)">
                 {{$index}} = {{$this}}
