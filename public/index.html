@@ -5,10 +5,13 @@
 
     <title>OhMySensors</title>
 
+    <script src="js/3rd/babel-polyfill.min.js"></script>
+    <script src="js/3rd/babel.min.js"></script>
     <script src="js/3rd/jquery.min.js"></script>
-    <script src="js/3rd/blocks.min.js"></script>
-    <script>
-      var nodes = {};
+
+    <script type="text/ecmascript-6" src="js/representation.js"></script>
+    <script type="text/ecmascript-6" src="js/message-handler.js"></script>
+    <script type="text/ecmascript-6">
       
       var socket = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host);
       socket.onopen = function(e) { console.log('connected'); };
@@ -16,53 +19,11 @@
       socket.onerror = function(e) { console.log('error'); };
 
       socket.onmessage = function(message) {
-        var object = JSON.parse(message.data);
-        var name = object[0];
-        var value = object[1];
-
-        switch (name) {
-          case 'nodeRegistered':
-            nodes[value.nodeId] = {
-              name: value.name,
-              version: value.version,
-              battery: value.battery,
-              sensors: {}
-            };
-            break;
-          case 'sensorRegistered':
-            nodes[value.nodeId].sensors[value.childId] = {
-              sensorId: value.sensorId,
-              type: value.type,
-              description: value.description,
-              lastSeen: typeof value.lastSeen !== 'undefined' ? new Date(value.lastSeen) : null,
-              values: {}
-            };
-            break;
-          case 'dataReceived':
-            nodes[value.nodeId].sensors[value.childId].values[value.type] = value.value;
-            break;
-        }
-        
-        blocks.query({ nodes: nodes }); // Temporary
+        MessageHandler(message);
       };
     </script>
   </head>
 
   <body>
-    <ul data-query="each(nodes)">
-      <li>
-        Node {{$index}}: {{$this.name}} - {{$this.version}}
-        <ul>
-          <li data-query="each($this.sensors)">
-            Child {{$index}}: {{$this.type}} - {{$this.description}} - {{$this.lastSeen}}
-            <ul>
-              <li data-query="each($this.values)">
-                {{$index}} = {{$this}}
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
   </body>
 </html>
